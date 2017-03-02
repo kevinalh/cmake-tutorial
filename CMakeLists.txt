@@ -55,3 +55,11 @@ add_test(TutorialUsage Tutorial)
 set_tests_properties(TutorialUsage
     PROPERTIES PASS_REGULAR_EXPRESSION "Usage:.*number"
     )
+
+# Build a CPack driven installer package
+include(InstallRequiredSystemLibraries)
+set(CPACK_RESOURCE_FILE_LICENSE
+    "${CMAKE_CURRENT_SOURCE_DIR}/License.txt")
+set(CPACK_PACKAGE_VERSION_MAJOR "${Tutorial_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${Tutorial_VERSION_MINOR}")
+include(CPack)
