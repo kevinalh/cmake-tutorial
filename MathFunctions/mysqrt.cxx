@@ -1,5 +1,8 @@
 #include "MathFunctions.h"
+#include "TutorialConfig.h"
 #include <stdio.h>
+
+#include <math.h>
 
 double mysqrt(double x) {
     if(x <= 0) {
@@ -7,9 +10,12 @@ double mysqrt(double x) {
     }
     double result;
     double delta;
+#if defined (HAVE_LOG) && defined (HAVE_EXP)
+    result = exp(log(x)*0.5);
+#else
     result = x;
     int i;
-    for (i=0; i<15; ++i) {
+    for (i=0; i<6; ++i) {
         if(result <= 0) {
             result = 0.1;
         }
@@ -17,5 +23,6 @@ double mysqrt(double x) {
         result = result + 0.5 * delta/result;
         fprintf(stdout, "Computing sqrt of %g to be %g\n", x, result);
     }
+#endif
     return result;
 }
